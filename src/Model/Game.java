@@ -1,9 +1,8 @@
 package Model;
 
 import Exception.*;
+import Service.WinningStrategy.WinningStrategy;
 
-
-import Service.WinningStrategy;
 
 import java.util.ArrayList;
 import java.util.HashSet;

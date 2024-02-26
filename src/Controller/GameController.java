@@ -1,7 +1,8 @@
 package Controller;
 
 import Model.*;
-import Service.WinningStrategy;
+import Service.WinningStrategy.WinningStrategy;
+
 import java.util.List;
 
 public class GameController {
