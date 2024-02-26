@@ -63,14 +63,12 @@ public class OrderOneWinningStrategy implements WinningStrategy{
 
     private boolean checkCorner(int row, int column)
     {
-        boolean b = (
+        return(
                 ((row == 0) && (column == 0))
                         || ((row == 0 && column == dimension - 1))
                         || ((row == (dimension - 1)) && (column == 0))
                         || ((row == (dimension - 1)) && (column == (dimension - 1)))
         );
-
-        return b;
     }
 
     public boolean populateHashMap(char symbol, HashMap<Character, Integer> hashMap)
