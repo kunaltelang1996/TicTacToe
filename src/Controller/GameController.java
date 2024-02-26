@@ -2,34 +2,41 @@ package Controller;
 
 import Model.*;
 import Service.WinningStrategy.WinningStrategy;
+import Service.WinningStrategy.WinningStrategyFactory;
+import Service.WinningStrategy.WinningStrategyName;
 
 import java.util.List;
 
 public class GameController {
 
-    public Game createGame(int dimension, List<Player> players, WinningStrategy name)
+    public Game createGame(int dimension, List<Player> players, WinningStrategyName name)
     {
-        return null;
+        return Game.builder()
+                .setDimension(dimension)
+                .setPlayers(players)
+                .setWinningStrategy(WinningStrategyFactory.getWinningStrategy(name,dimension))
+                .build();
+
     }
 
-    public Board displayBoard()
+    public void displayBoard(Game game)
     {
-        return null;
+         game.getCurrentBoard().displayBoard();
     }
 
-    public GameStatus getGameStatus()
+    public GameStatus getGameStatus(Game game)
     {
-        return null;
+        return game.getGameStatus();
     }
 
-    public Move makeMove()
+    public Move makeMove(Game game, Player player)
     {
-        return null;
+        return player.makeMove(game.getCurrentBoard());
     }
 
-    public Player checkWinner()
+    public Player checkWinner(Game game, Move lastPlayedMove)
     {
-        return null;
+        return game.getWinningStrategy().CheckWinner(game.getCurrentBoard(), lastPlayedMove);
     }
 
 }

@@ -17,7 +17,7 @@ public class OrderOneWinningStrategy implements WinningStrategy{
     private HashMap<Character, Integer> rightDiagonal;
     private HashMap<Character, Integer> corner;
 
-    public OrderOneWinningStrategy(int dimension, List<HashMap<Character, Integer>> rowList, List<HashMap<Character, Integer>> columnList, HashMap<Character, Integer> leftDiagonal, HashMap<Character, Integer> rightDiagonal, HashMap<Character, Integer> corner) {
+    public OrderOneWinningStrategy(int dimension) {
         this.dimension = dimension;
         this.rowList = new ArrayList<>();
         this.columnList = new ArrayList<>();
@@ -38,11 +38,17 @@ public class OrderOneWinningStrategy implements WinningStrategy{
         int row = lastMove.getCell().getRow();
         int column = lastMove.getCell().getColumn();
 
-//        boolean winner =
+        boolean winner = (checkCorner(row,column) && CornerWinnerCheck(symbol, this.corner)
+                || (populateHashMap(symbol,rowList.get(row)))
+                || (populateHashMap(symbol,columnList.get(column)))
+                || (checkLeftDiagonal(row, column) && populateHashMap(symbol, this.leftDiagonal))
+                || (checkRightDiagonal(row, column) && populateHashMap(symbol, this.rightDiagonal)));
 
-
-
-        return null;
+        if(winner)
+        {
+            return player;
+        }else
+            return null;
     }
 
     private boolean checkRightDiagonal(int row, int column)
@@ -57,6 +63,39 @@ public class OrderOneWinningStrategy implements WinningStrategy{
 
     private boolean checkCorner(int row, int column)
     {
-        return true;
+        boolean b = (
+                ((row == 0) && (column == 0))
+                        || ((row == 0 && column == dimension - 1))
+                        || ((row == (dimension - 1)) && (column == 0))
+                        || ((row == (dimension - 1)) && (column == (dimension - 1)))
+        );
+
+        return b;
+    }
+
+    public boolean populateHashMap(char symbol, HashMap<Character, Integer> hashMap)
+    {
+        if(hashMap.containsKey(symbol))
+        {
+            hashMap.put(symbol,hashMap.get(symbol) + 1);
+            return hashMap.get(symbol) == dimension;
+        }else
+        {
+            hashMap.put(symbol,1);
+        }
+        return false;
+    }
+
+    public boolean CornerWinnerCheck(char symbol, HashMap<Character, Integer> hashMap)
+    {
+        if (hashMap.containsKey(symbol))
+        {
+            hashMap.put(symbol, hashMap.get(symbol) + 1);
+            return hashMap.get(symbol) == 4;
+        }else
+        {
+            hashMap.put(symbol, 1);
+        }
+        return false;
     }
 }
