@@ -5,6 +5,7 @@ import Service.WinningStrategy.WinningStrategy;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -12,11 +13,13 @@ public class Game {
     Board currentBoard;
     List<Player> players;
     List<Move> moves;
+
     Player currentPlayer;
     GameStatus gameStatus;
     List<Board> boardStates;
     int noOfSymbols;
     WinningStrategy winningStrategy;
+
 
     public Game(Board currentBoard, List<Player> players, WinningStrategy winningStrategy) {
         this.currentBoard = currentBoard;
@@ -36,6 +39,11 @@ public class Game {
 
     public Board getCurrentBoard() {
         return currentBoard;
+    }
+
+    public Board getCloneOfCurrentBoard(Board currentBoard) {
+
+        return new Board(currentBoard);
     }
 
     public void setCurrentBoard(Board currentBoard) {

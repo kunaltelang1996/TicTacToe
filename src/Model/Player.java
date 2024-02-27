@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.GameController;
+
 import java.util.Scanner;
 
 public class Player {
@@ -49,16 +51,17 @@ public class Player {
 
     public Move makeMove(Board board)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the row index of the move");
-        int row = sc.nextInt();
-        System.out.println("Enter the column index of the move");
-        int column = sc.nextInt();
 
-        Cell lastPlayedCell = board.getMatrix().get(row).get(column);
-        lastPlayedCell.setCellState(CellState.FULL);
-        lastPlayedCell.setPlayer(this);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the row index of the move");
+            int row = sc.nextInt();
+            System.out.println("Enter the column index of the move");
+            int column = sc.nextInt();
 
-        return new Move(lastPlayedCell,this);
+            Cell lastPlayedCell = board.getMatrix().get(row).get(column);
+            lastPlayedCell.setCellState(CellState.FULL);
+            lastPlayedCell.setPlayer(this);
+            return new Move(lastPlayedCell, this);
+
     }
 }

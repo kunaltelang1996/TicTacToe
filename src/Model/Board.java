@@ -20,6 +20,27 @@ public class Board {
         }
     }
 
+    public Board(Board originalBoard) {
+        this.dimension = originalBoard.getDimension();
+        this.matrix = new ArrayList<>();
+
+        for (int i = 0; i < originalBoard.getDimension(); i++)
+        {
+            this.matrix.add(new ArrayList<>());
+            for(int j = 0;j<originalBoard.getDimension();j++)
+            {
+                Cell cell = originalBoard.getMatrix().get(i).get(j);
+                Cell cloneCell = originalBoard.getMatrix().get(i).get(j).clone();
+                cloneCell.setRow(cell.getRow());
+                cloneCell.setColumn(cell.getColumn());
+                cloneCell.setPlayer(cell.getPlayer());
+                cloneCell.setCellState(cell.getCellState());
+
+                this.matrix.get(i).add(cloneCell);
+            }
+        }
+    }
+
     public void displayBoard()
     {
         for(int i=0;i<dimension;i++)

@@ -12,13 +12,13 @@ public class RandomBotPlayingStrategy implements BotPlayingStrategy{
         List<List<Cell>> matrix =board.getMatrix();
         for(int i=0;i<matrix.size();i++)
         {
-            for(int j=0;i<matrix.size();j++)
+            for(int j=0;j<matrix.size();j++)
             {
                 if(matrix.get(i).get(j).getCellState().equals(CellState.EMPTY))
                 {
-                    board.getMatrix().get(i).get(j).setPlayer(bot);
-                    board.getMatrix().get(i).get(j).setCellState(CellState.FULL);
-                    return new Move(board.getMatrix().get(i).get(j), bot);
+                    matrix.get(i).get(j).setPlayer(bot);
+                    matrix.get(i).get(j).setCellState(CellState.FULL);
+                    return new Move(matrix.get(i).get(j), bot);
                 }
             }
         }

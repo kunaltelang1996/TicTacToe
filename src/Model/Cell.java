@@ -1,6 +1,6 @@
 package Model;
 
-public class Cell {
+public class Cell implements Cloneable{
     int row;
     int column;
     CellState cellState;
@@ -11,6 +11,11 @@ public class Cell {
         this.column = column;
         this.cellState = CellState.EMPTY;
         this.player = null;
+    }
+
+    public Cell clone()
+    {
+        return new Cell(0,0);
     }
 
     public void displayCell()

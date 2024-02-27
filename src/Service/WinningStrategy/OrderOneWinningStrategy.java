@@ -1,6 +1,7 @@
 package Service.WinningStrategy;
 
 import Model.Board;
+import Model.GameStatus;
 import Model.Move;
 import Model.Player;
 
@@ -51,6 +52,29 @@ public class OrderOneWinningStrategy implements WinningStrategy{
             return null;
     }
 
+    @Override
+    public void undoLastMove(Board board, Move lastMove) {
+        Player player =lastMove.getPlayer();
+        char symbol = player.getSymbol();
+        int row = lastMove.getCell().getRow();
+        int column = lastMove.getCell().getColumn();
+
+         if(checkCorner(row,column))
+         {
+             dePopulateHashMap(symbol, this.corner);
+         }
+         if(checkLeftDiagonal(row,column))
+         {
+             dePopulateHashMap(symbol, this.leftDiagonal);
+         }
+         if(checkRightDiagonal(row, column))
+         {
+             dePopulateHashMap(symbol, this.rightDiagonal);
+         }
+             dePopulateHashMap(symbol, rowList.get(row));
+             dePopulateHashMap(symbol,columnList.get(column));
+    }
+
     private boolean checkRightDiagonal(int row, int column)
     {
         return ((row + column) == (dimension - 1));
@@ -84,6 +108,20 @@ public class OrderOneWinningStrategy implements WinningStrategy{
         return false;
     }
 
+    public void dePopulateHashMap(char symbol, HashMap<Character, Integer> hashMap)
+    {
+        if(hashMap.containsKey(symbol))
+        {
+            hashMap.put(symbol,hashMap.get(symbol) - 1);
+
+        }
+        if(hashMap.get(symbol) == 0)
+        {
+            hashMap.remove(symbol);
+        }
+
+    }
+
     public boolean CornerWinnerCheck(char symbol, HashMap<Character, Integer> hashMap)
     {
         if (hashMap.containsKey(symbol))
@@ -95,5 +133,16 @@ public class OrderOneWinningStrategy implements WinningStrategy{
             hashMap.put(symbol, 1);
         }
         return false;
+    }
+
+    public boolean checkHashMap()
+    {
+        return false;
+    }
+
+    public GameStatus checkDraw()
+    {
+
+        return null;
     }
 }
